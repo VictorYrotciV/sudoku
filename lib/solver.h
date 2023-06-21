@@ -3,21 +3,21 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <functional>
-
+#include <string>
 #include "macro.h"
 
 
 bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> handleSolution);
 bool findEmptyLocation(const std::vector<std::vector<int>>& grid, int& row, int& col);
 bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num);
-int solveSudokuAndPrintAllSolutions(const std::vector<std::vector<int>>& grid, const std::string& file_path);
-
+int countSolutionsForSingleGame(const std::vector<std::vector<int>>& grid);
+void solveSudokuFromFile(const std::string& in_file, const std::string& out_file);
 bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> handleSolution) {
     int row, col;
     if (!findEmptyLocation(grid, row, col)) {
-        // 找到了一个解
         handleSolution();
         return true;
     }
@@ -26,10 +26,12 @@ bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> hand
         if (isSafe(grid, row, col, num)) {
             grid[row][col] = num;
 
-            if (solveSudoku(grid, handleSolution))
-                return true;
-
-            grid[row][col] = 0; // 回溯，将当前位置重置为0
+            if (solveSudoku(grid, handleSolution)) {
+                grid[row][col] = 0;  // Backtrack to find other solutions
+            }
+            else {
+                grid[row][col] = 0;
+            }
         }
     }
 
@@ -47,19 +49,16 @@ bool findEmptyLocation(const std::vector<std::vector<int>>& grid, int& row, int&
 }
 
 bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num) {
-    // 检查行是否安全
     for (int i = 0; i < SIZE; i++) {
         if (grid[row][i] == num)
             return false;
     }
 
-    // 检查列是否安全
     for (int i = 0; i < SIZE; i++) {
         if (grid[i][col] == num)
             return false;
     }
 
-    // 检查3x3方格是否安全
     int startRow = row - row % 3;
     int startCol = col - col % 3;
     for (int i = 0; i < 3; i++) {
@@ -72,44 +71,88 @@ bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num
     return true;
 }
 
-
-int solveSudokuAndPrintAllSolutions(const std::vector<std::vector<int>>& grid, const std::string& file_path) {
-    std::ofstream file(file_path);
-    if (!file.is_open()) {
-        std::cout << "Failed to open the file: " << file_path << std::endl;
-        return 0;
-    }
-
+int countSolutionsForSingleGame(const std::vector<std::vector<int>>& grid) {
     int solutionCount = 0;
-    std::vector<std::vector<int>> copyGrid = grid; // 复制数独游戏
+    std::vector<std::vector<int>> copyGrid = grid;
 
-    // 定义一个回调函数来处理每个解
     std::function<void()> handleSolution = [&]() {
         solutionCount++;
-        file << "Solution " << solutionCount << ":\n";
-        for (const auto& row : copyGrid) {
-            for (int num : row) {
-                file << num << " ";
-            }
-            file << "\n";
-        }
-        file << "\n";
     };
 
-    // 调用 solveSudoku 函数来解决数独游戏，并在回调函数中处理每个解
     solveSudoku(copyGrid, handleSolution);
-
-    file.close();
 
     return solutionCount;
 }
 
+void solveSudokuFromFile(const std::string& in_file, const std::string& out_file) {
+    std::ifstream file(in_file);
+    if (!file.is_open()) {
+        std::cout << "Failed to open the input file: " << in_file << std::endl;
+        return;
+    }
 
+    std::ofstream outFile(out_file);
+    if (!outFile.is_open()) {
+        std::cout << "Failed to open the output file: " << out_file << std::endl;
+        file.close();
+        return;
+    }
 
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.empty()) {
+            continue;  // Skip empty lines
+        }
 
+        std::vector<std::vector<int>> sudokuGrid;
+        std::stringstream ss(line);
 
+        int num;
+        while (ss >> num) {
+            sudokuGrid.push_back({ num });
+        }
 
+        if (sudokuGrid.size() != SIZE) {
+            std::cout << "Invalid input: Each Sudoku game should have " << SIZE << " rows." << std::endl;
+            continue;
+        }
 
+        for (int i = 1; i < SIZE; i++) {
+            std::getline(file, line);
+            if (line.empty()) {
+                std::cout << "Invalid input: Incomplete Sudoku game." << std::endl;
+                break;
+            }
+            std::stringstream ss(line);
 
+            for (int j = 0; j < SIZE; j++) {
+                ss >> num;
+                sudokuGrid[j].push_back(num);
+            }
+        }
+
+        int solutionCount = countSolutionsForSingleGame(sudokuGrid);
+        outFile << "Number of solutions: " << solutionCount << std::endl;
+
+        if (solutionCount > 0) {
+            std::vector<std::vector<int>> copyGrid = sudokuGrid;
+
+            std::function<void()> handleSolution = [&]() {
+                for (const auto& row : copyGrid) {
+                    for (int num : row) {
+                        outFile << num << " ";
+                    }
+                    outFile << std::endl;
+                }
+                outFile << std::endl;
+            };
+
+            solveSudoku(copyGrid, handleSolution);
+        }
+    }
+
+    file.close();
+    outFile.close();
+}
 
 #endif
