@@ -1,15 +1,12 @@
 #include <iostream>
 #include "string.h"
 #include "../include/game.h"
+#include "../include/config.h"
 using namespace std;
 int main(int argc, char const *argv[])
 {
-    int final_board_num=5;
-    std::string file_path="../games/game.txt";
-    int game_num=5;
-    int game_level=1;
-    int blank_num=20;
-    int is_solution_only=0;
+    int final_board_num,game_num,game_level,blank_lower_num,blank_upper_num,is_solution_only;
+    std::string file_path;
     for(int i=1;i<argc;i++)
     {
         if(!strcmp(argv[i], "-c"))
@@ -34,7 +31,13 @@ int main(int argc, char const *argv[])
         }
         else if(!strcmp(argv[i], "-r"))
         {
-            
+            char *token=NULL;
+            char *ptr=NULL;
+            char *str=const_cast<char*>(argv[++i]);
+            token=strtok_s(str,"~",&ptr);
+            blank_lower_num=(int)atoi(token);
+            token=strtok_s(NULL,"~",&ptr);
+            blank_upper_num=(int)atoi(token);
         }
         else if(!strcmp(argv[i], "-u"))
         {
