@@ -2,9 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <functional>
-
-#include "macro.h"
-
+#include "config.h"
 
 bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> handleSolution);
 bool findEmptyLocation(const std::vector<std::vector<int>>& grid, int& row, int& col);
@@ -16,7 +14,6 @@ bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> hand
     int row, col;
     if (!findEmptyLocation(grid, row, col))
     {
-        // �ҵ���һ����
         handleSolution();
         return true;
     }
@@ -52,21 +49,21 @@ bool findEmptyLocation(const std::vector<std::vector<int>>& grid, int& row, int&
 
 bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num)
 {
-    // ������Ƿ�ȫ
+    // row
     for (int i = 0; i < SIZE; i++)
     {
         if (grid[row][i] == num)
             return false;
     }
 
-    // ������Ƿ�ȫ
+    // col
     for (int i = 0; i < SIZE; i++)
     {
         if (grid[i][col] == num)
             return false;
     }
 
-    // ���3x3�����Ƿ�ȫ
+    // grid
     int startRow = row - row % 3;
     int startCol = col - col % 3;
     for (int i = 0; i < 3; i++)
@@ -80,7 +77,6 @@ bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num
 
     return true;
 }
-
 
 int solveSudokuAndPrintAllSolutions(const std::vector<std::vector<int>>& grid, const std::string& file_path)
 {

@@ -1,66 +1,20 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <random>
 #include <algorithm>
-#include "macro.h"
 #include "solver.h"
+#include "config.h"
+#include "tools.h"
 
-bool isRowValid(const std::vector<std::vector<int>>& grid, int row, int num);
-bool isColValid(const std::vector<std::vector<int>>& grid, int col, int num);
-bool isBoxValid(const std::vector<std::vector<int>>& grid, int startRow, int startCol, int num);
-bool isValid(const std::vector<std::vector<int>>& grid, int row, int col, int num);
+
 bool fillNumber(std::vector<std::vector<int>>& grid, int row, int col);
 std::vector<std::vector<int>> generateSudokuFinalBoard();
 std::vector<std::vector<int>> generateSudokuGameBoard(int r);
 std::vector<std::vector<int>> generateSudokuSolutionOnlyGameBoard(int r);
+void saveSudokuGamesToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path);
+void generateAndSaveSudokuGames(int n, int r, const std::string& file_path);
 
-// 检查数字在指定行是否重复
-bool isRowValid(const std::vector<std::vector<int>>& grid, int row, int num)
-{
-    for (int col = 0; col < SIZE; col++)
-    {
-        if (grid[row][col] == num)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-// 检查数字在指定列是否重复
-bool isColValid(const std::vector<std::vector<int>>& grid, int col, int num)
-{
-    for (int row = 0; row < SIZE; row++)
-    {
-        if (grid[row][col] == num)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-// 检查数字在指定的小方块是否重复
-bool isBoxValid(const std::vector<std::vector<int>>& grid, int startRow, int startCol, int num)
-{
-    for (int row = 0; row < 3; row++)
-    {
-        for (int col = 0; col < 3; col++)
-        {
-            if (grid[row + startRow][col + startCol] == num)
-            {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-// 检查数字在指定位置是否满足数独规则
-bool isValid(const std::vector<std::vector<int>>& grid, int row, int col, int num)
-{
-    return isRowValid(grid, row, num) && isColValid(grid, col, num) && isBoxValid(grid, row - row % 3, col - col % 3, num);
-}
 
 // 在指定位置填充数字
 bool fillNumber(std::vector<std::vector<int>>& grid, int row, int col)
@@ -106,7 +60,6 @@ bool fillNumber(std::vector<std::vector<int>>& grid, int row, int col)
     return false;
 }
 
-// 生成数独终盘
 std::vector<std::vector<int>> generateSudokuFinalBoard()
 {
     std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
@@ -117,7 +70,6 @@ std::vector<std::vector<int>> generateSudokuFinalBoard()
     return grid;
 }
 
-//挖空法生成数独游戏
 std::vector<std::vector<int>> generateSudokuGameBoard(int r)
 {
     std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
@@ -203,9 +155,6 @@ std::vector<std::vector<int>> generateSudokuSolutionOnlyGameBoard(int r)
     return grid;
 }
 
-
-
-// 打印数独
 void printSudokuBoard(const std::vector<std::vector<int>>& grid)
 {
     for (int row = 0; row < SIZE; row++)
@@ -216,4 +165,43 @@ void printSudokuBoard(const std::vector<std::vector<int>>& grid)
         }
         std::cout << std::endl;
     }
+}
+
+void saveSudokuGamesToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path)
+{
+    std::ofstream file(file_path);
+
+    if (!file)
+    {
+        std::cerr << "file error"<< file_path << std::endl;
+        return;
+    }
+
+    for (const auto& game : games)
+    {
+        for (int row = 0; row < SIZE; row++)
+        {
+            for (int col = 0; col < SIZE; col++)
+            {
+                file << game[row][col] << " ";
+            }
+            file << std::endl;
+        }
+        file << std::endl;
+    }
+    file.close();
+
+    std::cout << "save path:"<< file_path << std::endl;
+}
+
+void generateAndSaveSudokuGames(int n, int r, const std::string& file_path)
+{
+    std::vector<std::vector<std::vector<int>>> sudoku_games;
+    for (int i = 0; i < n; i++)
+    {
+        std::vector<std::vector<int>> sudoku = generateSudokuGameBoard(r);
+        sudoku_games.push_back(sudoku);
+    }
+
+    saveSudokuGamesToFile(sudoku_games, file_path);
 }
