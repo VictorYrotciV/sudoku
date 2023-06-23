@@ -10,12 +10,27 @@ bool solveSudokuCount(std::vector<std::vector<int>> &grid, int &solutionCount) {
     for (int num = 1; num <= 9; num++) {
         if (isValid(grid, row, col, num)) {
             grid[row][col] = num;
+            solveSudokuCount(grid, solutionCount);
+            grid[row][col] = 0;
+        }
+    }
 
-            if (solveSudokuCount(grid, solutionCount)) {
-                grid[row][col] = 0;  // Backtrack to find other solutions
-            } else {
-                grid[row][col] = 0;
-            }
+    return false;
+}
+
+bool solveSudokuStep(std::vector<std::vector<int>> &grid, int &step, int &solutionCount) {
+    int row, col;
+    if (!isEmpty(grid, row, col)) {
+        solutionCount++;
+        return true;
+    }
+
+    for (int num = 1; num <= 9; num++) {
+        if (isValid(grid, row, col, num)) {
+            step++;
+            grid[row][col] = num;
+            solveSudokuStep(grid, step, solutionCount);
+            grid[row][col] = 0;
         }
     }
 
@@ -38,12 +53,8 @@ bool solveSudokuSave(std::vector<std::vector<int>> &grid, std::ofstream &outFile
     for (int num = 1; num <= 9; num++) {
         if (isValid(grid, row, col, num)) {
             grid[row][col] = num;
-
-            if (solveSudokuSave(grid, outFile)) {
-                grid[row][col] = 0;  // Backtrack to find other solutions
-            } else {
-                grid[row][col] = 0;
-            }
+            solveSudokuSave(grid, outFile);
+            grid[row][col] = 0;
         }
     }
 

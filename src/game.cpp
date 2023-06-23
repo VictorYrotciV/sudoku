@@ -31,6 +31,36 @@ bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
     return false;
 }
 
+bool isLevel(int step, int solutionCount, int r, int level) {
+    /*
+     * step/solutionCount < 2*r : level1
+     * 2*r <= step/solutionCount < 5*r : level2
+     * 5*r <= step/solutionCount : level3
+     */
+    bool result = false;
+    switch (level) {
+        case 1: {
+            if (step / solutionCount < 2 * (float) r) {
+                result = true;
+            }
+            break;
+        }
+        case 2: {
+            if (step / solutionCount >= 2 * (float) r && step / solutionCount < 5 * (float) r) {
+                result = true;
+            }
+            break;
+        }
+        case 3: {
+            if (step / solutionCount >= 5 * (float) r) {
+                result = true;
+            }
+            break;
+        }
+    }
+    return result;
+}
+
 std::vector<std::vector<int>> genFinalBoard() {
     std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
     fillBoard(grid, 0, 0);
@@ -38,21 +68,34 @@ std::vector<std::vector<int>> genFinalBoard() {
 }
 
 std::vector<std::vector<int>> genGameBoard(int r, int level) {
-    std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
-    fillBoard(grid, 0, 0);
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_int_distribution<int> distribution(0, SIZE - 1);
-    int count = 0;
-    while (count < r) {
-        int row = distribution(rng);
-        int col = distribution(rng);
-        if (grid[row][col] != 0) {
-            grid[row][col] = 0;
-            count++;
+    int max_try_num = r * 10, try_num = 0;
+    while (1) {
+        std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
+        fillBoard(grid, 0, 0);
+        std::random_device rd;
+        std::mt19937 rng(rd());
+        std::uniform_int_distribution<int> distribution(0, SIZE - 1);
+        int count = 0;
+        while (count < r) {
+            int row = distribution(rng);
+            int col = distribution(rng);
+            if (grid[row][col] != 0) {
+                grid[row][col] = 0;
+                count++;
+            }
+        }
+        try_num++;
+        int step = 0, solutionCount = 0;
+        solveSudokuStep(grid, step, solutionCount);
+        if (isLevel(step, solutionCount, r, level)) {
+            return grid;
+        }
+        if (try_num >= max_try_num) {
+            std::cout << "failed in genOneSoluGameBoard" << std::endl;
+            break;
         }
     }
-    return grid;
+    return {};
 }
 
 std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {

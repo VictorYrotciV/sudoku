@@ -60,7 +60,7 @@ int main(int argc, char const *argv[]) {
             blank_upper_num = (int) atoi(token);
         }
         if (u_index) {
-            is_solution_only = (int) atoi(argv[u_index]);
+            is_solution_only = 1;
         }
         if (!is_solution_only) {
             genAndSaveGameBoards(game_num, blank_lower_num, blank_upper_num, game_level, games_file_path);
