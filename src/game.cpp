@@ -55,6 +55,24 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
     return grid;
 }
 
+std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {
+    int max_try_num = r * 10, try_num = 0;
+    while (1) {
+        std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
+        try_num++;
+        int solucount = 0;
+        solveSudokuCount(sudoku, solucount);
+        if (solucount == 1) {
+            return sudoku;
+        }
+        if (try_num >= max_try_num) {
+            std::cout << "failed in genOneSoluGameBoard" << std::endl;
+            break;
+        }
+    }
+    return {};
+}
+
 void printBoard(const std::vector<std::vector<int>> &grid) {
     for (int row = 0; row < SIZE; row++) {
         for (int col = 0; col < SIZE; col++) {
@@ -100,6 +118,19 @@ void genAndSaveGameBoards(int n, int r_lower, int r_upper, int level, const std:
     for (int i = 0; i < n; i++) {
         int r = distribution(rng);
         std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
+        sudoku_games.push_back(sudoku);
+    }
+    saveBoard(sudoku_games, file_path);
+}
+
+void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper, int level, const std::string &file_path) {
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> distribution(r_lower, r_upper);
+    std::vector<std::vector<std::vector<int>>> sudoku_games;
+    for (int i = 0; i < n; i++) {
+        int r = distribution(rng);
+        std::vector<std::vector<int>> sudoku = genOneSoluGameBoard(r, level);
         sudoku_games.push_back(sudoku);
     }
     saveBoard(sudoku_games, file_path);

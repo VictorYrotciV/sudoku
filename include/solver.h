@@ -11,11 +11,11 @@
 #include "tools.h"
 
 
-bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> handleSolution);
+bool solveSudokuCount(std::vector<std::vector<int>> &grid, int &solutionCount);
 
-int countSolutionsForSingleGame(const std::vector<std::vector<int>> &grid);
+bool solveSudokuSave(std::vector<std::vector<int>> &grid, std::ofstream &outFile);
 
-void solveSudokuFromFile(const std::string &in_file, const std::string &out_file);
+void solveFileSudoku(const std::string &in_file, const std::string &out_file);
 
 
 #endif

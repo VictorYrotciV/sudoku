@@ -1,9 +1,9 @@
 #include "solver.h"
 
-bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> handleSolution) {
+bool solveSudokuCount(std::vector<std::vector<int>> &grid, int &solutionCount) {
     int row, col;
     if (!isEmpty(grid, row, col)) {
-        handleSolution();
+        solutionCount++;
         return true;
     }
 
@@ -11,7 +11,7 @@ bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> hand
         if (isValid(grid, row, col, num)) {
             grid[row][col] = num;
 
-            if (solveSudoku(grid, handleSolution)) {
+            if (solveSudokuCount(grid, solutionCount)) {
                 grid[row][col] = 0;  // Backtrack to find other solutions
             } else {
                 grid[row][col] = 0;
@@ -22,20 +22,35 @@ bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> hand
     return false;
 }
 
-int countSolutionsForSingleGame(const std::vector<std::vector<int>> &grid) {
-    int solutionCount = 0;
-    std::vector<std::vector<int>> copyGrid = grid;
+bool solveSudokuSave(std::vector<std::vector<int>> &grid, std::ofstream &outFile) {
+    int row, col;
+    if (!isEmpty(grid, row, col)) {
+        for (const auto &row: grid) {
+            for (int num: row) {
+                outFile << num << " ";
+            }
+            outFile << std::endl;
+        }
+        outFile << std::endl;
+        return true;
+    }
 
-    std::function<void()> handleSolution = [&]() {
-        solutionCount++;
-    };
+    for (int num = 1; num <= 9; num++) {
+        if (isValid(grid, row, col, num)) {
+            grid[row][col] = num;
 
-    solveSudoku(copyGrid, handleSolution);
+            if (solveSudokuSave(grid, outFile)) {
+                grid[row][col] = 0;  // Backtrack to find other solutions
+            } else {
+                grid[row][col] = 0;
+            }
+        }
+    }
 
-    return solutionCount;
+    return false;
 }
 
-void solveSudokuFromFile(const std::string &in_file, const std::string &out_file) {
+void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
     std::ifstream file(in_file);
     if (!file.is_open()) {
         std::cout << "Failed to open the input file: " << in_file << std::endl;
@@ -81,24 +96,13 @@ void solveSudokuFromFile(const std::string &in_file, const std::string &out_file
                 sudokuGrid[j].push_back(num);
             }
         }
-
-        int solutionCount = countSolutionsForSingleGame(sudokuGrid);
+        int solutionCount = 0;
+        solveSudokuCount(sudokuGrid, solutionCount);
         outFile << "Number of solutions: " << solutionCount << std::endl;
 
         if (solutionCount > 0) {
             std::vector<std::vector<int>> copyGrid = sudokuGrid;
-
-            std::function<void()> handleSolution = [&]() {
-                for (const auto &row: copyGrid) {
-                    for (int num: row) {
-                        outFile << num << " ";
-                    }
-                    outFile << std::endl;
-                }
-                outFile << std::endl;
-            };
-
-            solveSudoku(copyGrid, handleSolution);
+            solveSudokuSave(copyGrid, outFile);
         }
     }
 

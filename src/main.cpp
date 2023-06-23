@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]) {
         } else if (!strcmp(argv[i], "-s")) {
             std::string games_file_path = string(argv[++i]);
             std::string sudoku_file_path = DEFAULT_SUDOKU_FILE_PATH;
-            solveSudokuFromFile(games_file_path, sudoku_file_path);
+            solveFileSudoku(games_file_path, sudoku_file_path);
         } else if (!strcmp(argv[i], "-n")) {
             is_n = 1;
             n_index = ++i;
@@ -62,7 +62,12 @@ int main(int argc, char const *argv[]) {
         if (u_index) {
             is_solution_only = (int) atoi(argv[u_index]);
         }
-        genAndSaveGameBoards(game_num, blank_lower_num, blank_upper_num, game_level, games_file_path);
+        if (!is_solution_only) {
+            genAndSaveGameBoards(game_num, blank_lower_num, blank_upper_num, game_level, games_file_path);
+        } else {
+            genAndSaveOneSoluGameBoards(game_num, blank_lower_num, blank_upper_num, game_level, games_file_path);
+        }
+
     }
 
     return 0;
