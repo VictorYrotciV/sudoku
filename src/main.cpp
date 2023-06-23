@@ -52,8 +52,8 @@ int main(int argc, char const *argv[])
     // }
     int n=DEFAULT_FINAL_BOARD_NUM;
     int r=DEFAULT_BLANK_LOWER_NUM;
-    std::string file_path = "./games/game.txt"; // 文件路径和名称
-    std::string outfile_path = "./games/sudoku.txt";
+    std::string file_path = "../games/game.txt"; // 文件路径和名称
+    std::string outfile_path = "../games/sudoku.txt";
     generateAndSaveSudokuGames(n, r, file_path);
     solveSudokuFromFile(file_path,outfile_path);
 
