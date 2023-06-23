@@ -52,6 +52,7 @@
         "list": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
+<<<<<<< HEAD
         "array": "cpp",
         "*.tcc": "cpp",
         "cstdarg": "cpp",
@@ -63,6 +64,10 @@
         "string": "cpp",
         "string_view": "cpp",
         "ranges": "cpp"
+=======
+        "sstream": "cpp",
+        "string": "cpp"
+>>>>>>> 77192f8f16d9765ea1eb43c0314c833de87d7bde
     },
     "code-runner.executorMap": {
         "c": "gcc '$fileName' -o '$fileNameWithoutExt.exe' -Wall -O2 -m64 -lm -static-libgcc -std=c11 -finput-charset=utf-8 && &'./$fileNameWithoutExt.exe'",
