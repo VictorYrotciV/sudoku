@@ -1,6 +1,6 @@
-.vscode/
-.idea/
-games/
-*.exe
-cmake-build-debug/
+/.vscode/
+/.idea/
+/games/
+/cmake-build-debug/
 CMakeLists.txt
+*.exe

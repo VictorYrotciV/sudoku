@@ -1,5 +1,5 @@
-#ifndef SOLVE_H
-#define SOLVE_H
+#ifndef SOLVER_H
+#define SOLVER_H
 
 #include <iostream>
 #include <fstream>
