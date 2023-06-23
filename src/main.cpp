@@ -48,7 +48,12 @@ int main(int argc, char const *argv[])
             std::cerr << "param error"<< file_path << std::endl;
             return -1;
         }
+        
     }
+    // std::string file_path = "./games/game.txt"; // 文件路径和名称
+    // std::string outfile_path = "./games/sudoku.txt";
+    // generateAndSaveSudokuGames(n, r, file_path);
+    // solveSudokuFromFile(file_path,outfile_path);
 
     return 0;
 }
