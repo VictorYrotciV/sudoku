@@ -1,6 +1,7 @@
 #define SIZE 9
 #define DEFAULT_FINAL_BOARD_NUM 5
-#define DEFAULT_FILE_PATH "../games/game.txt"
+#define DEFAULT_GAME_FILE_PATH "../games/game.txt"
+#define DEFAULT_SUDOKU_FILE_PATH "../games/sudoku.txt"
 #define DEFAULT_GAME_NUM 5
 #define DEFAULT_GAME_LEVEL 1
 #define DEFAULT_BLANK_LOWER_NUM 20
