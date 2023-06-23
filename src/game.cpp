@@ -31,7 +31,7 @@ bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
     return false;
 }
 
-bool isLevel(int step, int solutionCount, int r, int level) {
+bool isInLevel(int step, int solutionCount, int r, int level) {
     /*
      * step/solutionCount < 2*r : level1
      * 2*r <= step/solutionCount < 5*r : level2
@@ -68,13 +68,15 @@ std::vector<std::vector<int>> genFinalBoard() {
 }
 
 std::vector<std::vector<int>> genGameBoard(int r, int level) {
-    int max_try_num = r * 10, try_num = 0;
+    int max_try_num = r * DEFAULT_MAX_TRY_NUM, try_num = 0;
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> distribution(0, SIZE - 1);
+
     while (1) {
         std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
         fillBoard(grid, 0, 0);
-        std::random_device rd;
-        std::mt19937 rng(rd());
-        std::uniform_int_distribution<int> distribution(0, SIZE - 1);
+
         int count = 0;
         while (count < r) {
             int row = distribution(rng);
@@ -87,11 +89,11 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
         try_num++;
         int step = 0, solutionCount = 0;
         solveSudokuStep(grid, step, solutionCount);
-        if (isLevel(step, solutionCount, r, level)) {
+        if (isInLevel(step, solutionCount, r, level)) {
             return grid;
         }
         if (try_num >= max_try_num) {
-            std::cout << "failed in genOneSoluGameBoard" << std::endl;
+            std::cout << "failed in genGameBoard" << std::endl;
             break;
         }
     }
@@ -99,7 +101,7 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
 }
 
 std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {
-    int max_try_num = r * 10, try_num = 0;
+    int max_try_num = r * DEFAULT_MAX_TRY_NUM, try_num = 0;
     while (1) {
         std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
         try_num++;
@@ -141,7 +143,7 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games, const st
         file << std::endl;
     }
     file.close();
-    std::cout << "save board:" << file_path << std::endl;
+    std::cout << "save" << file_path << std::endl;
 }
 
 void genAndSaveFinalBoards(int n, const std::string &file_path) {

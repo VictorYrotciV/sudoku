@@ -12,7 +12,7 @@
 
 bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col);
 
-bool isLevel(int step, int solutionCount, int r, int level);
+bool isInLevel(int step, int solutionCount, int r, int level);
 
 std::vector<std::vector<int>> genFinalBoard();
 

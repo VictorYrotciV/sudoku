@@ -9,5 +9,6 @@
 #define DEFAULT_R_LOWER 20
 #define DEFAULT_R_UPPER 55
 #define DEFAULT_IS_SOLUTION_ONLY 0
+#define DEFAULT_MAX_TRY_NUM 100
 
 #endif
