@@ -1,5 +1,6 @@
-.vscode
-games
+.vscode/
+.idea/
+games/
 *.exe
-cmake-build-debug
+cmake-build-debug/
 CMakeLists.txt
