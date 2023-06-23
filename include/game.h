@@ -12,8 +12,8 @@ bool fillNumber(std::vector<std::vector<int>>& grid, int row, int col);
 std::vector<std::vector<int>> generateSudokuFinalBoard();
 std::vector<std::vector<int>> generateSudokuGameBoard(int r);
 std::vector<std::vector<int>> generateSudokuSolutionOnlyGameBoard(int r);
-void saveSudokuGamesToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path);
-void generateAndSaveSudokuGames(int n, int r, const std::string& file_path);
+void saveSudokusToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path);
+void generateAndSaveSudokuGameBoards(int n, int r, const std::string& file_path);
 
 
 // 在指定位置填充数字
@@ -167,7 +167,7 @@ void printSudokuBoard(const std::vector<std::vector<int>>& grid)
     }
 }
 
-void saveSudokuGamesToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path)
+void saveSudokusToFile(const std::vector<std::vector<std::vector<int>>>& games, const std::string& file_path)
 {
     std::ofstream file(file_path);
 
@@ -194,14 +194,29 @@ void saveSudokuGamesToFile(const std::vector<std::vector<std::vector<int>>>& gam
     std::cout << "save path:"<< file_path << std::endl;
 }
 
-void generateAndSaveSudokuGames(int n, int r, const std::string& file_path)
+void generateAndSaveSudokuFinalBoards(int n, const std::string& file_path)
 {
+    std::vector<std::vector<std::vector<int>>> sudoku_final_boards;
+    for (int i = 0; i < n; i++)
+    {
+        std::vector<std::vector<int>> sudoku = generateSudokuFinalBoard();
+        sudoku_final_boards.push_back(sudoku);
+    }
+
+    saveSudokusToFile(sudoku_final_boards, file_path);
+}
+
+void generateAndSaveSudokuGameBoards(int n, int r_lower, int r_upper, int level, const std::string& file_path)
+{
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> distribution(r_lower, r_upper);
     std::vector<std::vector<std::vector<int>>> sudoku_games;
     for (int i = 0; i < n; i++)
     {
+        int r=distribution(rng);
         std::vector<std::vector<int>> sudoku = generateSudokuGameBoard(r);
         sudoku_games.push_back(sudoku);
     }
-
-    saveSudokuGamesToFile(sudoku_games, file_path);
+    saveSudokusToFile(sudoku_games, file_path);
 }
