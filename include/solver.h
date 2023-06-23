@@ -8,13 +8,10 @@
 #include <functional>
 #include <string>
 #include "config.h"
+#include "tools.h"
 
 
 bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> handleSolution);
-
-bool findEmptyLocation(const std::vector<std::vector<int>> &grid, int &row, int &col);
-
-bool isSafe(const std::vector<std::vector<int>> &grid, int row, int col, int num);
 
 int countSolutionsForSingleGame(const std::vector<std::vector<int>> &grid);
 

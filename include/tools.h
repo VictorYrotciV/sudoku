@@ -13,5 +13,7 @@ bool isBoxValid(const std::vector<std::vector<int>> &grid, int startRow, int sta
 
 bool isValid(const std::vector<std::vector<int>> &grid, int row, int col, int num);
 
+bool isEmpty(const std::vector<std::vector<int>> &grid, int &row, int &col);
+
 #endif
 

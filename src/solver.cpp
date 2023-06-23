@@ -2,13 +2,13 @@
 
 bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> handleSolution) {
     int row, col;
-    if (!findEmptyLocation(grid, row, col)) {
+    if (!isEmpty(grid, row, col)) {
         handleSolution();
         return true;
     }
 
     for (int num = 1; num <= 9; num++) {
-        if (isSafe(grid, row, col, num)) {
+        if (isValid(grid, row, col, num)) {
             grid[row][col] = num;
 
             if (solveSudoku(grid, handleSolution)) {
@@ -20,39 +20,6 @@ bool solveSudoku(std::vector<std::vector<int>> &grid, std::function<void()> hand
     }
 
     return false;
-}
-
-bool findEmptyLocation(const std::vector<std::vector<int>> &grid, int &row, int &col) {
-    for (row = 0; row < SIZE; row++) {
-        for (col = 0; col < SIZE; col++) {
-            if (grid[row][col] == 0)
-                return true;
-        }
-    }
-    return false;
-}
-
-bool isSafe(const std::vector<std::vector<int>> &grid, int row, int col, int num) {
-    for (int i = 0; i < SIZE; i++) {
-        if (grid[row][i] == num)
-            return false;
-    }
-
-    for (int i = 0; i < SIZE; i++) {
-        if (grid[i][col] == num)
-            return false;
-    }
-
-    int startRow = row - row % 3;
-    int startCol = col - col % 3;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (grid[i + startRow][j + startCol] == num)
-                return false;
-        }
-    }
-
-    return true;
 }
 
 int countSolutionsForSingleGame(const std::vector<std::vector<int>> &grid) {
