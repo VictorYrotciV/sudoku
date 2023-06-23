@@ -12,7 +12,8 @@ bool findEmptyLocation(const std::vector<std::vector<int>>& grid, int& row, int&
 bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num);
 int countSolutionsForSingleGame(const std::vector<std::vector<int>>& grid);
 void solveSudokuFromFile(const std::string& in_file, const std::string& out_file);
-bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> handleSolution) {
+bool solveSudoku(std::vector<std::vector<int>>& grid, std::function<void()> handleSolution)
+{
     int row, col;
     if (!findEmptyLocation(grid, row, col))
     {
@@ -81,11 +82,13 @@ bool isSafe(const std::vector<std::vector<int>>& grid, int row, int col, int num
     return true;
 }
 
-int countSolutionsForSingleGame(const std::vector<std::vector<int>>& grid) {
+int countSolutionsForSingleGame(const std::vector<std::vector<int>>& grid)
+{
     int solutionCount = 0;
     std::vector<std::vector<int>> copyGrid = grid;
 
-    std::function<void()> handleSolution = [&]() {
+    std::function<void()> handleSolution = [&]()
+    {
         solutionCount++;
     };
 
