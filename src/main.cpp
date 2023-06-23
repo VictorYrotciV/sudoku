@@ -64,6 +64,8 @@ int main(int argc, char const *argv[])
         if(m_index)
         {
             game_level=(int)atoi(argv[m_index]);
+            if(game_level<1 || game_level>3)
+                return -1;
         }
         if(r_index)
         {

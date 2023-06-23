@@ -70,7 +70,7 @@ std::vector<std::vector<int>> generateSudokuFinalBoard()
     return grid;
 }
 
-std::vector<std::vector<int>> generateSudokuGameBoard(int r)
+std::vector<std::vector<int>> generateSudokuGameBoard(int r, int level)
 {
     std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
 
@@ -215,7 +215,7 @@ void generateAndSaveSudokuGameBoards(int n, int r_lower, int r_upper, int level,
     for (int i = 0; i < n; i++)
     {
         int r=distribution(rng);
-        std::vector<std::vector<int>> sudoku = generateSudokuGameBoard(r);
+        std::vector<std::vector<int>> sudoku = generateSudokuGameBoard(r, level);
         sudoku_games.push_back(sudoku);
     }
     saveSudokusToFile(sudoku_games, file_path);
