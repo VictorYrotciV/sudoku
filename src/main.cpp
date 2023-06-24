@@ -1,7 +1,6 @@
 #include <iostream>
 #include "string.h"
 #include "../include/game.h"
-#include "../include/config.h"
 
 using namespace std;
 
