@@ -29,7 +29,7 @@ int main(int argc, char const *argv[]) {
             r_index = ++i;
         } else if (!strcmp(argv[i], "-u")) {
             n_flag = 1;
-            u_index = ++i;
+            u_index = i;
         } else {
             std::cerr << "param error:" << argv[i] << std::endl;
             return -1;

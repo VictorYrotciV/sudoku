@@ -82,31 +82,48 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
         }
 
         std::vector<std::vector<int>> sudokuGrid;
-        std::stringstream ss(line);
-
-        int num;
-        while (ss >> num) {
-            sudokuGrid.push_back({num});
+        std::vector<int> one_row;
+        char *token = NULL;
+        char *ptr = NULL;
+        char *str = const_cast<char *>(line.c_str());
+        token = strtok_s(str, " ", &ptr);
+        while (token != NULL) {
+            if(!strcmp(token, "$")) {
+                one_row.push_back(0);
+            } else {
+                one_row.push_back((int) atoi(token));
+            }
+            token = strtok_s(NULL, " ", &ptr);
         }
 
-        if (sudokuGrid.size() != SIZE) {
+        if (one_row.size() != SIZE) {
             std::cout << "Invalid input: Each Sudoku game should have " << SIZE << " rows." << std::endl;
             continue;
         }
-
+        sudokuGrid.push_back(one_row);
         for (int i = 1; i < SIZE; i++) {
             std::getline(file, line);
             if (line.empty()) {
                 std::cout << "Invalid input: Incomplete Sudoku game." << std::endl;
                 break;
             }
-            std::stringstream ss(line);
-
+            char *token = NULL;
+            char *ptr = NULL;
+            char *str = const_cast<char *>(line.c_str());
+            std::vector<int> one_row;
+            token = strtok_s(str, " ", &ptr);
             for (int j = 0; j < SIZE; j++) {
-                ss >> num;
-                sudokuGrid[j].push_back(num);
+                if (!strcmp(token, "$")) {
+                    one_row.push_back(0);
+                } else {
+                    one_row.push_back((int) atoi(token));
+                }
+                token = strtok_s(NULL, " ", &ptr);
             }
+            sudokuGrid.push_back(one_row);
+
         }
+
         int solutionCount = 0;
         solveSudokuCount(sudokuGrid, solutionCount);
         outFile << "Number of solutions: " << solutionCount << std::endl;

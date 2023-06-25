@@ -7,8 +7,10 @@
 #include <vector>
 #include <functional>
 #include <string>
+#include "string.h"
 #include "config.h"
 #include "tools.h"
+#include "game.h"
 
 
 bool solveSudokuCount(std::vector<std::vector<int>> &grid, int &solutionCount);

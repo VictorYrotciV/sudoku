@@ -121,7 +121,11 @@ std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {
 void printBoard(const std::vector<std::vector<int>> &grid) {
     for (int row = 0; row < SIZE; row++) {
         for (int col = 0; col < SIZE; col++) {
-            std::cout << grid[row][col] << " ";
+            if (grid[row][col] == 0) {
+                std::cout << "$" << " ";
+            } else {
+                std::cout << grid[row][col] << " ";
+            }
         }
         std::cout << std::endl;
     }
@@ -136,7 +140,10 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games, const st
     for (const auto &game: games) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
-                file << game[row][col] << " ";
+                if (game[row][col] == 0)
+                    file << "$" << " ";
+                else
+                    file << game[row][col] << " ";
             }
             file << std::endl;
         }
