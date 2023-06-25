@@ -17,3 +17,10 @@
 
 
 求解一个数独游戏，返回是否有解
+
+# CppLint用法
+
+```
+python cpplint.py /include/config.h
+```
+
