@@ -1,5 +1,6 @@
-#ifndef SOLVER_H
-#define SOLVER_H
+// Copyright [2023] <PingShilong YaoHuizai>
+#ifndef SUDOKU_INCLUDE_SOLVER_H_
+#define SUDOKU_INCLUDE_SOLVER_H_
 
 #include <iostream>
 #include <fstream>
@@ -22,4 +23,4 @@ bool solveSudokuSave(std::vector<std::vector<int>> &grid, std::ofstream &outFile
 void solveFileSudoku(const std::string &in_file, const std::string &out_file);
 
 
-#endif
+#endif  // SUDOKU_INCLUDE_SOLVER_H_"

@@ -1,5 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+// Copyright [2023] <PingShilong YaoHuizai>
+#ifndef SUDOKU_INCLUDE_CONFIG_H_
+#define SUDOKU_INCLUDE_CONFIG_H_
 
 #define SIZE 9
 #define DEFAULT_GAME_FILE_PATH "../files/game.txt"
@@ -11,4 +12,4 @@
 #define DEFAULT_IS_SOLUTION_ONLY 0
 #define DEFAULT_MAX_TRY_NUM 100
 
-#endif
+#endif  // SUDOKU_INCLUDE_CONFIG_H_

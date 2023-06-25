@@ -18,7 +18,7 @@ bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
     std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     std::shuffle(nums.begin(), nums.end(), rng);
 
-    for (int num: nums) {
+    for (int num : nums) {
         if (isValid(grid, row, col, num)) {
             grid[row][col] = num;
             if (fillBoard(grid, row, col + 1)) {
@@ -40,19 +40,20 @@ bool isInLevel(int step, int solutionCount, int r, int level) {
     bool result = false;
     switch (level) {
         case 1: {
-            if (step / solutionCount < 2 * (float) r) {
+            if (step / solutionCount < 2 * static_cast<float>(r)) {
                 result = true;
             }
             break;
         }
         case 2: {
-            if (step / solutionCount >= 2 * (float) r && step / solutionCount < 5 * (float) r) {
+            if (step / solutionCount >= 2 * static_cast<float>(r)
+            && step / solutionCount < 5 * static_cast<float>(r)) {
                 result = true;
             }
             break;
         }
         case 3: {
-            if (step / solutionCount >= 5 * (float) r) {
+            if (step / solutionCount >= 5 * static_cast<float>(r)) {
                 result = true;
             }
             break;
@@ -131,13 +132,14 @@ void printBoard(const std::vector<std::vector<int>> &grid) {
     }
 }
 
-void saveBoard(const std::vector<std::vector<std::vector<int>>> &games, const std::string &file_path) {
+void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
+               const std::string &file_path) {
     std::ofstream file(file_path);
     if (!file) {
         std::cerr << "file error" << file_path << std::endl;
         return;
     }
-    for (const auto &game: games) {
+    for (const auto &game : games) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (game[row][col] == 0)
@@ -162,7 +164,8 @@ void genAndSaveFinalBoards(int n, const std::string &file_path) {
     saveBoard(sudoku_final_boards, file_path);
 }
 
-void genAndSaveGameBoards(int n, int r_lower, int r_upper, int level, const std::string &file_path) {
+void genAndSaveGameBoards(int n, int r_lower, int r_upper,
+                          int level, const std::string &file_path) {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(r_lower, r_upper);
@@ -175,7 +178,8 @@ void genAndSaveGameBoards(int n, int r_lower, int r_upper, int level, const std:
     saveBoard(sudoku_games, file_path);
 }
 
-void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper, int level, const std::string &file_path) {
+void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper,
+                                 int level, const std::string &file_path) {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(r_lower, r_upper);

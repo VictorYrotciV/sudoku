@@ -18,7 +18,8 @@ bool solveSudokuCount(std::vector<std::vector<int>> &grid, int &solutionCount) {
     return false;
 }
 
-bool solveSudokuStep(std::vector<std::vector<int>> &grid, int &step, int &solutionCount) {
+bool solveSudokuStep(std::vector<std::vector<int>> &grid,
+                     int &step, int &solutionCount) {
     int row, col;
     if (!isEmpty(grid, row, col)) {
         solutionCount++;
@@ -37,11 +38,12 @@ bool solveSudokuStep(std::vector<std::vector<int>> &grid, int &step, int &soluti
     return false;
 }
 
-bool solveSudokuSave(std::vector<std::vector<int>> &grid, std::ofstream &outFile) {
+bool solveSudokuSave(std::vector<std::vector<int>> &grid,
+                     std::ofstream &outFile) {
     int row, col;
     if (!isEmpty(grid, row, col)) {
-        for (const auto &row: grid) {
-            for (int num: row) {
+        for (const auto &row : grid) {
+            for (int num : row) {
                 outFile << num << " ";
             }
             outFile << std::endl;
@@ -70,7 +72,8 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
 
     std::ofstream outFile(out_file);
     if (!outFile.is_open()) {
-        std::cout << "Failed to open the output file: " << out_file << std::endl;
+        std::cout << "Failed to open the output file: "
+        << out_file << std::endl;
         file.close();
         return;
     }
@@ -88,23 +91,25 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
         char *str = const_cast<char *>(line.c_str());
         token = strtok_s(str, " ", &ptr);
         while (token != NULL) {
-            if(!strcmp(token, "$")) {
+            if (!strcmp(token, "$")) {
                 one_row.push_back(0);
             } else {
-                one_row.push_back((int) atoi(token));
+                one_row.push_back(atoi(token));
             }
             token = strtok_s(NULL, " ", &ptr);
         }
 
         if (one_row.size() != SIZE) {
-            std::cout << "Invalid input: Each Sudoku game should have " << SIZE << " rows." << std::endl;
+            std::cout << "Invalid input: Each Sudoku game should have " << SIZE
+                      << " cols." << std::endl;
             continue;
         }
         sudokuGrid.push_back(one_row);
         for (int i = 1; i < SIZE; i++) {
             std::getline(file, line);
             if (line.empty()) {
-                std::cout << "Invalid input: Incomplete Sudoku game." << std::endl;
+                std::cout << "Invalid input: Incomplete Sudoku game."
+                          << std::endl;
                 break;
             }
             char *token = NULL;
@@ -116,12 +121,11 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
                 if (!strcmp(token, "$")) {
                     one_row.push_back(0);
                 } else {
-                    one_row.push_back((int) atoi(token));
+                    one_row.push_back(atoi(token));
                 }
                 token = strtok_s(NULL, " ", &ptr);
             }
             sudokuGrid.push_back(one_row);
-
         }
 
         int solutionCount = 0;
