@@ -18,7 +18,7 @@ bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col) {
     std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     std::shuffle(nums.begin(), nums.end(), rng);
 
-    for (int num : nums) {
+    for (int num: nums) {
         if (isValid((*grid), row, col, num)) {
             (*grid)[row][col] = num;
             if (fillBoard(grid, row, col + 1)) {
@@ -47,7 +47,7 @@ bool isInLevel(int step, int solutionCount, int r, int level) {
         }
         case 2: {
             if (step / solutionCount >= 2 * static_cast<float>(r)
-            && step / solutionCount < 5 * static_cast<float>(r)) {
+                && step / solutionCount < 5 * static_cast<float>(r)) {
                 result = true;
             }
             break;
@@ -141,7 +141,7 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
         std::cerr << "file error" << file_path << std::endl;
         return;
     }
-    for (const auto &game : games) {
+    for (const auto &game: games) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (game[row][col] == 0)

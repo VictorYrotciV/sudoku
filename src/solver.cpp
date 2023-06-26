@@ -42,8 +42,8 @@ bool solveSudokuSave(std::vector<std::vector<int>> *grid,
                      std::ofstream *outFile) {
     int row, col;
     if (!isEmpty(*grid, &row, &col)) {
-        for (const auto &row : *grid) {
-            for (int num : row) {
+        for (const auto &row: *grid) {
+            for (int num: row) {
                 (*outFile) << num << " ";
             }
             (*outFile) << std::endl;
@@ -73,7 +73,7 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
     std::ofstream outFile(out_file);
     if (!outFile.is_open()) {
         std::cout << "Failed to open the output file: "
-        << out_file << std::endl;
+                  << out_file << std::endl;
         file.close();
         return;
     }
