@@ -12,7 +12,7 @@
 #include "config.h"
 #include "tools.h"
 
-bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col);
+bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col);
 
 bool isInLevel(int step, int solutionCount, int r, int level);
 

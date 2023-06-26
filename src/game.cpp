@@ -1,6 +1,6 @@
 #include "game.h"
 
-bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
+bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col) {
     if (row == SIZE) {
         return true;
     }
@@ -9,7 +9,7 @@ bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
         return fillBoard(grid, row + 1, 0);
     }
 
-    if (grid[row][col] != 0) {
+    if ((*grid)[row][col] != 0) {
         return fillBoard(grid, row, col + 1);
     }
 
@@ -19,12 +19,12 @@ bool fillBoard(std::vector<std::vector<int>> &grid, int row, int col) {
     std::shuffle(nums.begin(), nums.end(), rng);
 
     for (int num : nums) {
-        if (isValid(grid, row, col, num)) {
-            grid[row][col] = num;
+        if (isValid((*grid), row, col, num)) {
+            (*grid)[row][col] = num;
             if (fillBoard(grid, row, col + 1)) {
                 return true;
             }
-            grid[row][col] = 0;
+            (*grid)[row][col] = 0;
         }
     }
 
@@ -64,7 +64,7 @@ bool isInLevel(int step, int solutionCount, int r, int level) {
 
 std::vector<std::vector<int>> genFinalBoard() {
     std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
-    fillBoard(grid, 0, 0);
+    fillBoard(&grid, 0, 0);
     return grid;
 }
 
@@ -76,7 +76,7 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
 
     while (1) {
         std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
-        fillBoard(grid, 0, 0);
+        fillBoard(&grid, 0, 0);
 
         int count = 0;
         while (count < r) {
@@ -89,7 +89,8 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
         }
         try_num++;
         int step = 0, solutionCount = 0;
-        solveSudokuStep(grid, step, solutionCount);
+        std::vector<std::vector<int>> copyGrid(grid);
+        solveSudokuStep(&copyGrid, &step, &solutionCount);
         if (isInLevel(step, solutionCount, r, level)) {
             return grid;
         }
@@ -107,7 +108,8 @@ std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {
         std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
         try_num++;
         int solucount = 0;
-        solveSudokuCount(sudoku, solucount);
+        std::vector<std::vector<int>> copyGrid(sudoku);
+        solveSudokuCount(&copyGrid, &solucount);
         if (solucount == 1) {
             return sudoku;
         }

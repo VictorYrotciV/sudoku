@@ -16,6 +16,6 @@ bool isBoxValid(const std::vector<std::vector<int>> &grid,
 bool isValid(const std::vector<std::vector<int>> &grid,
              int row, int col, int num);
 
-bool isEmpty(const std::vector<std::vector<int>> &grid, int &row, int &col);
+bool isEmpty(const std::vector<std::vector<int>> &grid, int *row, int *col);
 
 #endif  // SUDOKU_INCLUDE_TOOLS_H_
