@@ -1,11 +1,11 @@
 // Copyright 2023 PY Inc.
 // Author: YaoHuizai PingShilong
 
+#include <string.h>
 #include <iostream>
-#include "string.h"
-#include "config.h"
-#include "solver.h"
-#include "game.h"
+#include "../include/config.h"
+#include "../include/solver.h"
+#include "../include/game.h"
 
 
 int main(int argc, char const *argv[]) {

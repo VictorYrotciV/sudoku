@@ -1,8 +1,9 @@
 // Copyright 2023 PY Inc.
 // Author: YaoHuizai PingShilong
 
-#include "tools.h"
-#include "config.h"
+#include "../include/tools.h"
+#include "../include/config.h"
+
 
 bool isRowValid(const std::vector<std::vector<int>> &grid, int row, int num) {
     for (int col = 0; col < SIZE; col++) {

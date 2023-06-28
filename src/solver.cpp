@@ -1,10 +1,10 @@
 // Copyright 2023 PY Inc.
 // Author: YaoHuizai PingShilong
 
-#include "solver.h"
-#include "config.h"
-#include "tools.h"
-#include "string.h"
+#include <string.h>
+#include "../include/solver.h"
+#include "../include/config.h"
+#include "../include/tools.h"
 
 
 bool solveSudokuCount(std::vector<std::vector<int>> *grid, int *solutionCount) {

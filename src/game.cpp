@@ -1,10 +1,11 @@
 // Copyright 2023 PY Inc.
 // Author: YaoHuizai PingShilong
 
-#include "game.h"
-#include "solver.h"
-#include "config.h"
-#include "tools.h"
+#include "../include/game.h."
+#include "../include/solver.h"
+#include "../include/tools.h"
+#include "../include/config.h"
+
 
 bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col) {
     if (row == SIZE) {
