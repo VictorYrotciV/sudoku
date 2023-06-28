@@ -1,3 +1,6 @@
+// Copyright 2023 PY Inc.
+// Author: YaoHuizai PingShilong
+
 #include "solver.h"
 #include "config.h"
 #include "tools.h"
@@ -46,8 +49,8 @@ bool solveSudokuSave(std::vector<std::vector<int>> *grid,
                      std::ofstream *outFile) {
     int row, col;
     if (!isEmpty(*grid, &row, &col)) {
-        for (const auto &one_row: *grid) {
-            for (int num: one_row) {
+        for (const auto &one_row : *grid) {
+            for (int num : one_row) {
                 (*outFile) << num << " ";
             }
             (*outFile) << std::endl;

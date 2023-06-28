@@ -1,3 +1,6 @@
+// Copyright 2023 PY Inc.
+// Author: YaoHuizai PingShilong
+
 #include "tools.h"
 #include "config.h"
 

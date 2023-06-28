@@ -1,4 +1,6 @@
-// Copyright [2023] <PingShilong YaoHuizai>
+// Copyright 2023 PY Inc.
+// Author: YaoHuizai PingShilong
+
 #ifndef SUDOKU_INCLUDE_SOLVER_H_
 #define SUDOKU_INCLUDE_SOLVER_H_
 
