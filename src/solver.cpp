@@ -1,4 +1,8 @@
 #include "solver.h"
+#include "config.h"
+#include "tools.h"
+#include "string.h"
+
 
 bool solveSudokuCount(std::vector<std::vector<int>> *grid, int *solutionCount) {
     int row, col;
@@ -42,8 +46,8 @@ bool solveSudokuSave(std::vector<std::vector<int>> *grid,
                      std::ofstream *outFile) {
     int row, col;
     if (!isEmpty(*grid, &row, &col)) {
-        for (const auto &row: *grid) {
-            for (int num: row) {
+        for (const auto &one_row: *grid) {
+            for (int num: one_row) {
                 (*outFile) << num << " ";
             }
             (*outFile) << std::endl;
@@ -85,26 +89,26 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
         }
 
         std::vector<std::vector<int>> sudokuGrid;
-        std::vector<int> one_row;
-        char *token = NULL;
-        char *ptr = NULL;
-        char *str = const_cast<char *>(line.c_str());
-        token = strtok_s(str, " ", &ptr);
-        while (token != NULL) {
-            if (!strcmp(token, "$")) {
-                one_row.push_back(0);
+        std::vector<int> test_one_row;
+        char *test_token = NULL;
+        char *test_ptr = NULL;
+        char *test_str = const_cast<char *>(line.c_str());
+        test_token = strtok_s(test_str, " ", &test_ptr);
+        while (test_token != NULL) {
+            if (!strcmp(test_token, "$")) {
+                test_one_row.push_back(0);
             } else {
-                one_row.push_back(atoi(token));
+                test_one_row.push_back(atoi(test_token));
             }
-            token = strtok_s(NULL, " ", &ptr);
+            test_token = strtok_s(NULL, " ", &test_ptr);
         }
 
-        if (one_row.size() != SIZE) {
+        if (test_one_row.size() != SIZE) {
             std::cout << "Invalid input: Each Sudoku game should have " << SIZE
                       << " cols." << std::endl;
             continue;
         }
-        sudokuGrid.push_back(one_row);
+        sudokuGrid.push_back(test_one_row);
         for (int i = 1; i < SIZE; i++) {
             std::getline(file, line);
             if (line.empty()) {
@@ -134,8 +138,8 @@ void solveFileSudoku(const std::string &in_file, const std::string &out_file) {
         outFile << "Number of solutions: " << solutionCount << std::endl;
 
         if (solutionCount > 0) {
-            std::vector<std::vector<int>> copyGrid(sudokuGrid);
-            solveSudokuSave(&copyGrid, &outFile);
+            std::vector<std::vector<int>> saveGrid(sudokuGrid);
+            solveSudokuSave(&saveGrid, &outFile);
         }
     }
 

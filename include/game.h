@@ -8,9 +8,6 @@
 #include <random>
 #include <algorithm>
 #include <string>
-#include "solver.h"
-#include "config.h"
-#include "tools.h"
 
 bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col);
 

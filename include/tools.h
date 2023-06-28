@@ -3,7 +3,6 @@
 #define SUDOKU_INCLUDE_TOOLS_H_
 
 #include <vector>
-#include "config.h"
 
 
 bool isRowValid(const std::vector<std::vector<int>> &grid, int row, int num);

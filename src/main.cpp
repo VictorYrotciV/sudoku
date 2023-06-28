@@ -1,6 +1,8 @@
 #include <iostream>
 #include "string.h"
-#include "../include/game.h"
+#include "config.h"
+#include "solver.h"
+#include "game.h"
 
 
 int main(int argc, char const *argv[]) {

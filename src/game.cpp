@@ -1,4 +1,7 @@
 #include "game.h"
+#include "solver.h"
+#include "config.h"
+#include "tools.h"
 
 bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col) {
     if (row == SIZE) {
