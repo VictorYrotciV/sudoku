@@ -2,5 +2,7 @@
 /.idea/
 /files/
 /cmake-build-debug/
+/googletest/
+/test/
 CMakeLists.txt
-*.exe
+cpplint.py
