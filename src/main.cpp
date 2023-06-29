@@ -70,10 +70,12 @@ int main(int argc, char const *argv[]) {
         }
         if (!is_solution_only) {
             genAndSaveGameBoards(game_num, r_lower_num, r_upper_num,
-                                 game_level, final_file_path, games_file_path);
+                                 game_level, final_file_path,
+                                 games_file_path);
         } else {
             genAndSaveOneSoluGameBoards(game_num, r_lower_num, r_upper_num,
-                                        game_level, final_file_path, games_file_path);
+                                        game_level, final_file_path,
+                                        games_file_path);
         }
     }
 

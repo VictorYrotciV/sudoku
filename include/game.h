@@ -24,7 +24,8 @@ std::vector<std::vector<int>> genGameBoard(
 void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
                const std::string &file_path);
 
-std::vector<std::vector<std::vector<int>>> loadBoard(const std::string &file_path);
+std::vector<std::vector<std::vector<int>>> loadBoard(
+        const std::string &file_path);
 
 void genAndSaveFinalBoards(int n, const std::string &file_path);
 
