@@ -1,6 +1,7 @@
 // Copyright 2023 PY Inc.
 // Author: YaoHuizai PingShilong
 
+#include <string.h>
 #include "../include/game.h."
 #include "../include/solver.h"
 #include "../include/tools.h"
@@ -25,7 +26,7 @@ bool fillBoard(std::vector<std::vector<int>> *grid, int row, int col) {
     std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     std::shuffle(nums.begin(), nums.end(), rng);
 
-    for (int num : nums) {
+    for (int num: nums) {
         if (isValid((*grid), row, col, num)) {
             (*grid)[row][col] = num;
             if (fillBoard(grid, row, col + 1)) {
@@ -44,29 +45,29 @@ bool isInLevel(int step, int solutionCount, int r, int level) {
      * 2*r <= step/solutionCount < 5*r : level2
      * 5*r <= step/solutionCount : level3
      */
-     bool result = false;
-     switch (level) {
-         case 1: {
-             if (step / solutionCount < 2 * static_cast<float>(r)) {
-                 result = true;
-             }
-             break;
-         }
-         case 2: {
-             if (step / solutionCount >= 2 * static_cast<float>(r)
-                 && step / solutionCount < 5 * static_cast<float>(r)) {
-                 result = true;
-             }
-             break;
-         }
-         case 3: {
-             if (step / solutionCount >= 5 * static_cast<float>(r)) {
-                 result = true;
-             }
-             break;
-         }
-     }
-     return result;
+    bool result = false;
+    switch (level) {
+        case 1: {
+            if (step / solutionCount < 2 * static_cast<float>(r)) {
+                result = true;
+            }
+            break;
+        }
+        case 2: {
+            if (step / solutionCount >= 2 * static_cast<float>(r)
+                && step / solutionCount < 5 * static_cast<float>(r)) {
+                result = true;
+            }
+            break;
+        }
+        case 3: {
+            if (step / solutionCount >= 5 * static_cast<float>(r)) {
+                result = true;
+            }
+            break;
+        }
+    }
+    return result;
 }
 
 std::vector<std::vector<int>> genFinalBoard() {
@@ -75,16 +76,16 @@ std::vector<std::vector<int>> genFinalBoard() {
     return grid;
 }
 
-std::vector<std::vector<int>> genGameBoard(int r, int level) {
+std::vector<std::vector<int>> genGameBoard(
+        const std::vector<std::vector<int>> &final_board,
+        int r, int level) {
     int max_try_num = r * DEFAULT_MAX_TRY_NUM, try_num = 0;
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(0, SIZE - 1);
 
     while (1) {
-        std::vector<std::vector<int>> grid(SIZE, std::vector<int>(SIZE, 0));
-        fillBoard(&grid, 0, 0);
-
+        std::vector<std::vector<int>> grid(final_board);
         int count = 0;
         while (count < r) {
             int row = distribution(rng);
@@ -116,7 +117,7 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
         std::cerr << "file error" << file_path << std::endl;
         return;
     }
-    for (const auto &game : games) {
+    for (const auto &game: games) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (game[row][col] == 0)
@@ -131,6 +132,67 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
     file.close();
 }
 
+std::vector<std::vector<std::vector<int>>> loadBoard(const std::string &file_path) {
+    std::ifstream file(file_path);
+    if (!file.is_open()) {
+        return {};
+    }
+    std::vector<std::vector<std::vector<int>>> boards;
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.empty()) {
+            continue;  // Skip empty lines
+        }
+
+        std::vector<std::vector<int>> sudokuGrid;
+        std::vector<int> test_one_row;
+        char *test_token = NULL;
+        char *test_ptr = NULL;
+        char *test_str = const_cast<char *>(line.c_str());
+        test_token = strtok_s(test_str, " ", &test_ptr);
+        while (test_token != NULL) {
+            if (!strcmp(test_token, "$")) {
+                test_one_row.push_back(0);
+            } else {
+                test_one_row.push_back(atoi(test_token));
+            }
+            test_token = strtok_s(NULL, " ", &test_ptr);
+        }
+
+        if (test_one_row.size() != SIZE) {
+            std::cout << "Invalid input: Each Sudoku game should have " << SIZE
+                      << " cols." << std::endl;
+            continue;
+        }
+        sudokuGrid.push_back(test_one_row);
+        for (int i = 1; i < SIZE; i++) {
+            std::getline(file, line);
+            if (line.empty()) {
+                std::cout << "Invalid input: Incomplete Sudoku game."
+                          << std::endl;
+                break;
+            }
+            char *token = NULL;
+            char *ptr = NULL;
+            char *str = const_cast<char *>(line.c_str());
+            std::vector<int> one_row;
+            token = strtok_s(str, " ", &ptr);
+            for (int j = 0; j < SIZE; j++) {
+                if (!strcmp(token, "$")) {
+                    one_row.push_back(0);
+                } else {
+                    one_row.push_back(atoi(token));
+                }
+                token = strtok_s(NULL, " ", &ptr);
+            }
+            sudokuGrid.push_back(one_row);
+        }
+        boards.push_back(sudokuGrid);
+    }
+    file.close();
+    return boards;
+}
+
 void genAndSaveFinalBoards(int n, const std::string &file_path) {
     std::vector<std::vector<std::vector<int>>> sudoku_final_boards;
     for (int i = 0; i < n; i++) {
@@ -140,32 +202,40 @@ void genAndSaveFinalBoards(int n, const std::string &file_path) {
     saveBoard(sudoku_final_boards, file_path);
 }
 
-void genAndSaveGameBoards(int n, int r_lower, int r_upper,
-                          int level, const std::string &file_path) {
+void genAndSaveGameBoards(int n, int r_lower, int r_upper, int level,
+                          const std::string &final_file_path,
+                          const std::string &game_file_path) {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(r_lower, r_upper);
     std::vector<std::vector<std::vector<int>>> sudoku_games;
+    std::vector<std::vector<std::vector<int>>> final_boards = loadBoard(final_file_path);
+    int index=0;
     for (int i = 0; i < n; i++) {
         int r = distribution(rng);
-        std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
+        std::vector<std::vector<int>> sudoku = genGameBoard(final_boards[index], r, level);
+        index = (++index) % final_boards.size();
         sudoku_games.push_back(sudoku);
     }
-    saveBoard(sudoku_games, file_path);
+    saveBoard(sudoku_games, game_file_path);
 }
 
-void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper,
-                                 int level, const std::string &file_path) {
+void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper, int level,
+                                 const std::string &final_file_path,
+                                 const std::string &game_file_path) {
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_int_distribution<int> distribution(r_lower, r_upper);
     std::vector<std::vector<std::vector<int>>> sudoku_games;
+    std::vector<std::vector<std::vector<int>>> final_boards = loadBoard(final_file_path);
+    int index = 0;
     for (int i = 0; i < n; i++) {
         std::vector<std::vector<int>> sudoku;
-        int r, try_num=0;
+        int r, try_num = 0;
         while (1) {
             r = distribution(rng);
-            sudoku = genGameBoard(r, level);
+            sudoku = genGameBoard(final_boards[index], r, level);
+            index = (++index) % final_boards.size();
             try_num++;
             int solucount = 0;
             std::vector<std::vector<int>> copyGrid(sudoku);
@@ -180,5 +250,5 @@ void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper,
         }
         sudoku_games.push_back(sudoku);
     }
-    saveBoard(sudoku_games, file_path);
+    saveBoard(sudoku_games, game_file_path);
 }

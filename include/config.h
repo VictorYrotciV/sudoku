@@ -7,7 +7,7 @@
 #define SIZE 9
 #define DEFAULT_GAME_NUM 5
 #define DEFAULT_GAME_FILE_PATH "D:/VSCode/sudoku/files/game.txt"
-#define DEFAULT_RESULT_FILE_PATH "D:/VSCode/sudoku/files/final.txt"
+#define DEFAULT_FINAL_FILE_PATH "D:/VSCode/sudoku/files/final.txt"
 #define DEFAULT_SUDOKU_FILE_PATH "D:/VSCode/sudoku/files/sudoku.txt"
 #define DEFAULT_TEMP_FILE_PATH "D:/VSCode/sudoku/files/temp.txt"
 #define DEFAULT_LEVEL 1

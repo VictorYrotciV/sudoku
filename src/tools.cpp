@@ -38,7 +38,7 @@ bool isBoxValid(const std::vector<std::vector<int>> &grid,
 bool isValid(const std::vector<std::vector<int>> &grid,
              int row, int col, int num) {
     return isRowValid(grid, row, num) && isColValid(grid, col, num) &&
-           isBoxValid(grid, row - row % 3, col - col % 3, num);
+           isBoxValid(grid, row, col, num);
 }
 
 bool isEmpty(const std::vector<std::vector<int>> &grid, int *row, int *col) {

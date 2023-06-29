@@ -11,13 +11,13 @@
 int main(int argc, char const *argv[]) {
     int is_n = 0, n_flag = 0;
     int n_index = 0, m_index = 0, r_index = 0, u_index = 0;
+    std::string final_file_path = DEFAULT_FINAL_FILE_PATH;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-c")) {
             int final_board_num = atoi(argv[++i]);
             if (final_board_num < 1 || final_board_num > 1000000)
                 return -1;
-            std::string finalboards_file_path = DEFAULT_RESULT_FILE_PATH;
-            genAndSaveFinalBoards(final_board_num, finalboards_file_path);
+            genAndSaveFinalBoards(final_board_num, final_file_path);
         } else if (!strcmp(argv[i], "-s")) {
             std::string games_file_path = std::string(argv[++i]);
             std::string sudoku_file_path = DEFAULT_SUDOKU_FILE_PATH;
@@ -70,10 +70,10 @@ int main(int argc, char const *argv[]) {
         }
         if (!is_solution_only) {
             genAndSaveGameBoards(game_num, r_lower_num, r_upper_num,
-                                 game_level, games_file_path);
+                                 game_level, final_file_path, games_file_path);
         } else {
             genAndSaveOneSoluGameBoards(game_num, r_lower_num, r_upper_num,
-                                        game_level, games_file_path);
+                                        game_level, final_file_path, games_file_path);
         }
     }
 

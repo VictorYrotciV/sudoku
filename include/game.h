@@ -17,17 +17,23 @@ bool isInLevel(int step, int solutionCount, int r, int level);
 
 std::vector<std::vector<int>> genFinalBoard();
 
-std::vector<std::vector<int>> genGameBoard(int r, int level);
+std::vector<std::vector<int>> genGameBoard(
+        const std::vector<std::vector<int>> &final_board,
+        int r, int level);
 
 void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
                const std::string &file_path);
 
+std::vector<std::vector<std::vector<int>>> loadBoard(const std::string &file_path);
+
 void genAndSaveFinalBoards(int n, const std::string &file_path);
 
 void genAndSaveGameBoards(int n, int r_lower, int r_upper, int level,
-                          const std::string &file_path);
+                          const std::string &final_file_path,
+                          const std::string &game_file_path);
 
 void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper, int level,
-                                 const std::string &file_path);
+                                 const std::string &final_file_path,
+                                 const std::string &game_file_path);
 
 #endif  // SUDOKU_INCLUDE_GAME_H_
