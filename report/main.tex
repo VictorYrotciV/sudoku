@@ -299,7 +299,7 @@ $ $ 2 $ $ $ 8 7 $
 \section{质量分析}
 使用CppCheck完成质量分析。使用CppCheck对目录或文件进行分析后，会得到代码中可能需要优化的地方，例如：
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.4]{images/ncppcheck.jpg}
   \label{fig:ncppcheck}
@@ -307,8 +307,17 @@ $ $ 2 $ $ $ 8 7 $
 
 代码中变量r的作用域可缩减至for循环中。CppCheck同时会提供信息帮助理解。
 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4]{images/ncppcheck_2.jpg}
+  \label{fig:ncppcheck_2}
+\end{figure}
+
+参数grid可声明为const reference。
+
 使用CppCheck质量分析代码并消除警告后结果如下（结果中消除引入标准头文件之外的所有警告和错误）:
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.6]{images/cppcheck.jpg}
   \caption{质量分析}
@@ -333,7 +342,20 @@ $ $ 2 $ $ $ 8 7 $
   \caption{单元测试}
   \label{fig:test}
 \end{figure}
-
-
 \section{覆盖统计}
+使用CLion自带coverage完成覆盖统计，结果如下：
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.75]{images/cov_1.jpg}
+  \label{fig:cov_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.75]{images/cov_2.jpg}
+  \label{fig:cov_2}
+\end{figure}
+
+测试程序对游戏的生成及求解进行了测试，因此未使用tools文件（终端生成所需）。此外，solver中有一个大型函数solveFileSudoku，此函数将文件中的游戏求解并输出到结果文件中，而在单元测试中我们将此函数进行拆解测试，并未使用原函数，因此solver中行覆盖率与分支覆盖率相较于game和test较低。
 \end{document}
