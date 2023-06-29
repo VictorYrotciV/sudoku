@@ -27,7 +27,7 @@ bool isBoxValid(const std::vector<std::vector<int>> &grid,
                 int startRow, int startCol, int num) {
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 3; col++) {
-            if (grid[row + startRow][col + startCol] == num) {
+            if (grid[row + startRow / 3 * 3][col + startCol  / 3 * 3] == num) {
                 return false;
             }
         }

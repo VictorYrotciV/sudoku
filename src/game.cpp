@@ -44,29 +44,29 @@ bool isInLevel(int step, int solutionCount, int r, int level) {
      * 2*r <= step/solutionCount < 5*r : level2
      * 5*r <= step/solutionCount : level3
      */
-    bool result = false;
-    switch (level) {
-        case 1: {
-            if (step / solutionCount < 2 * static_cast<float>(r)) {
-                result = true;
-            }
-            break;
-        }
-        case 2: {
-            if (step / solutionCount >= 2 * static_cast<float>(r)
-                && step / solutionCount < 5 * static_cast<float>(r)) {
-                result = true;
-            }
-            break;
-        }
-        case 3: {
-            if (step / solutionCount >= 5 * static_cast<float>(r)) {
-                result = true;
-            }
-            break;
-        }
-    }
-    return result;
+     bool result = false;
+     switch (level) {
+         case 1: {
+             if (step / solutionCount < 2 * static_cast<float>(r)) {
+                 result = true;
+             }
+             break;
+         }
+         case 2: {
+             if (step / solutionCount >= 2 * static_cast<float>(r)
+                 && step / solutionCount < 5 * static_cast<float>(r)) {
+                 result = true;
+             }
+             break;
+         }
+         case 3: {
+             if (step / solutionCount >= 5 * static_cast<float>(r)) {
+                 result = true;
+             }
+             break;
+         }
+     }
+     return result;
 }
 
 std::vector<std::vector<int>> genFinalBoard() {
@@ -109,38 +109,6 @@ std::vector<std::vector<int>> genGameBoard(int r, int level) {
     return {};
 }
 
-std::vector<std::vector<int>> genOneSoluGameBoard(int r, int level) {
-    int max_try_num = r * DEFAULT_MAX_TRY_NUM, try_num = 0;
-    while (1) {
-        std::vector<std::vector<int>> sudoku = genGameBoard(r, level);
-        try_num++;
-        int solucount = 0;
-        std::vector<std::vector<int>> copyGrid(sudoku);
-        solveSudokuCount(&copyGrid, &solucount);
-        if (solucount == 1) {
-            return sudoku;
-        }
-        if (try_num >= max_try_num) {
-            std::cout << "failed in genOneSoluGameBoard" << std::endl;
-            break;
-        }
-    }
-    return {};
-}
-
-void printBoard(const std::vector<std::vector<int>> &grid) {
-    for (int row = 0; row < SIZE; row++) {
-        for (int col = 0; col < SIZE; col++) {
-            if (grid[row][col] == 0) {
-                std::cout << "$" << " ";
-            } else {
-                std::cout << grid[row][col] << " ";
-            }
-        }
-        std::cout << std::endl;
-    }
-}
-
 void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
                const std::string &file_path) {
     std::ofstream file(file_path);
@@ -161,7 +129,6 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
         file << std::endl;
     }
     file.close();
-    std::cout << "save" << file_path << std::endl;
 }
 
 void genAndSaveFinalBoards(int n, const std::string &file_path) {
@@ -194,8 +161,23 @@ void genAndSaveOneSoluGameBoards(int n, int r_lower, int r_upper,
     std::uniform_int_distribution<int> distribution(r_lower, r_upper);
     std::vector<std::vector<std::vector<int>>> sudoku_games;
     for (int i = 0; i < n; i++) {
-        int r = distribution(rng);
-        std::vector<std::vector<int>> sudoku = genOneSoluGameBoard(r, level);
+        std::vector<std::vector<int>> sudoku;
+        int r, try_num=0;
+        while (1) {
+            r = distribution(rng);
+            sudoku = genGameBoard(r, level);
+            try_num++;
+            int solucount = 0;
+            std::vector<std::vector<int>> copyGrid(sudoku);
+            solveSudokuCount(&copyGrid, &solucount);
+            if (solucount == 1) {
+                break;
+            }
+            if (try_num >= r * DEFAULT_MAX_TRY_NUM) {
+                std::cout << "failed in genOneSoluGameBoard" << std::endl;
+                break;
+            }
+        }
         sudoku_games.push_back(sudoku);
     }
     saveBoard(sudoku_games, file_path);

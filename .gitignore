@@ -3,6 +3,4 @@
 /files/
 /cmake-build-debug/
 /googletest/
-/test/
-CMakeLists.txt
 cpplint.py
