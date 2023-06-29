@@ -266,7 +266,7 @@ $ $ 2 $ $ $ 8 7 $
 
 \end{enumerate}
 \section{编程规范}
-代码使用CppLint检测并消除代码中的不规范。
+使用CppLint检测并消除代码中的不规范。
 
 使用CppLint时检测出代码一系列不规范。以game.cpp为例（为使结果清楚简洁已将同一类型不规范消除至一个）:
 \begin{figure}[!ht]
@@ -297,8 +297,25 @@ $ $ 2 $ $ $ 8 7 $
 \end{figure}
 
 \section{质量分析}
-\section{单元测试}
-代码使用GoogleTest完成单元测试。GoogleTest是 Google 开源的一个跨平台C++ 单元测试框架。
+使用CppCheck完成质量分析。使用CppCheck对目录或文件进行分析后，会得到代码中可能需要优化的地方，例如：
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.4]{images/ncppcheck.jpg}
+  \label{fig:ncppcheck}
+\end{figure}
+
+代码中变量r的作用域可缩减至for循环中。CppCheck同时会提供信息帮助理解。
+
+使用CppCheck质量分析代码并消除警告后结果如下（结果中消除引入标准头文件之外的所有警告和错误）:
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.6]{images/cppcheck.jpg}
+  \caption{质量分析}
+  \label{fig:cppcheck}
+\end{figure}
+
+\section{单元测试}使用GoogleTest完成单元测试。GoogleTest是 Google 开源的一个跨平台C++ 单元测试框架。
 
 代码分别就生成游戏的正确性、挖空范围、游戏难度、唯一解展开测试。
 \begin{enumerate}
@@ -310,7 +327,7 @@ $ $ 2 $ $ $ 8 7 $
 
 实验结果如下：
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.9]{images/test.jpg}
   \caption{单元测试}
