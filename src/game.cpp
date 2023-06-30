@@ -129,6 +129,7 @@ void saveBoard(const std::vector<std::vector<std::vector<int>>> &games,
         }
         file << std::endl;
     }
+    std::cout << "save data in " << file_path << std::endl;
     file.close();
 }
 

@@ -152,6 +152,30 @@ src/game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/src/game.cpp.s
 .PHONY : src/game.cpp.s
 
+src/main.obj: src/main.cpp.obj
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 src/solver.obj: src/solver.cpp.obj
 .PHONY : src/solver.obj
 
@@ -200,30 +224,6 @@ src/tools.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/src/tools.cpp.s
 .PHONY : src/tools.cpp.s
 
-test/test.obj: test/test.cpp.obj
-.PHONY : test/test.obj
-
-# target to build an object file
-test/test.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/test/test.cpp.obj
-.PHONY : test/test.cpp.obj
-
-test/test.i: test/test.cpp.i
-.PHONY : test/test.i
-
-# target to preprocess a source file
-test/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/test/test.cpp.i
-.PHONY : test/test.cpp.i
-
-test/test.s: test/test.cpp.s
-.PHONY : test/test.s
-
-# target to generate assembly for a file
-test/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sudoku.dir\build.make CMakeFiles/sudoku.dir/test/test.cpp.s
-.PHONY : test/test.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -236,15 +236,15 @@ help:
 	@echo ... src/game.obj
 	@echo ... src/game.i
 	@echo ... src/game.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
 	@echo ... src/solver.obj
 	@echo ... src/solver.i
 	@echo ... src/solver.s
 	@echo ... src/tools.obj
 	@echo ... src/tools.i
 	@echo ... src/tools.s
-	@echo ... test/test.obj
-	@echo ... test/test.i
-	@echo ... test/test.s
 .PHONY : help
 
 

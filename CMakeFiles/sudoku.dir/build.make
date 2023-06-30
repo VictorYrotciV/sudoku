@@ -83,26 +83,11 @@ CMakeFiles/sudoku.dir/src/game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sudoku.dir/src/game.cpp.s"
 	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\VSCode\sudoku\src\game.cpp -o CMakeFiles\sudoku.dir\src\game.cpp.s
 
-CMakeFiles/sudoku.dir/test/test.cpp.obj: CMakeFiles/sudoku.dir/flags.make
-CMakeFiles/sudoku.dir/test/test.cpp.obj: CMakeFiles/sudoku.dir/includes_CXX.rsp
-CMakeFiles/sudoku.dir/test/test.cpp.obj: test/test.cpp
-CMakeFiles/sudoku.dir/test/test.cpp.obj: CMakeFiles/sudoku.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sudoku.dir/test/test.cpp.obj"
-	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sudoku.dir/test/test.cpp.obj -MF CMakeFiles\sudoku.dir\test\test.cpp.obj.d -o CMakeFiles\sudoku.dir\test\test.cpp.obj -c D:\VSCode\sudoku\test\test.cpp
-
-CMakeFiles/sudoku.dir/test/test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sudoku.dir/test/test.cpp.i"
-	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\VSCode\sudoku\test\test.cpp > CMakeFiles\sudoku.dir\test\test.cpp.i
-
-CMakeFiles/sudoku.dir/test/test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sudoku.dir/test/test.cpp.s"
-	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\VSCode\sudoku\test\test.cpp -o CMakeFiles\sudoku.dir\test\test.cpp.s
-
 CMakeFiles/sudoku.dir/src/solver.cpp.obj: CMakeFiles/sudoku.dir/flags.make
 CMakeFiles/sudoku.dir/src/solver.cpp.obj: CMakeFiles/sudoku.dir/includes_CXX.rsp
 CMakeFiles/sudoku.dir/src/solver.cpp.obj: src/solver.cpp
 CMakeFiles/sudoku.dir/src/solver.cpp.obj: CMakeFiles/sudoku.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sudoku.dir/src/solver.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sudoku.dir/src/solver.cpp.obj"
 	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sudoku.dir/src/solver.cpp.obj -MF CMakeFiles\sudoku.dir\src\solver.cpp.obj.d -o CMakeFiles\sudoku.dir\src\solver.cpp.obj -c D:\VSCode\sudoku\src\solver.cpp
 
 CMakeFiles/sudoku.dir/src/solver.cpp.i: cmake_force
@@ -117,7 +102,7 @@ CMakeFiles/sudoku.dir/src/tools.cpp.obj: CMakeFiles/sudoku.dir/flags.make
 CMakeFiles/sudoku.dir/src/tools.cpp.obj: CMakeFiles/sudoku.dir/includes_CXX.rsp
 CMakeFiles/sudoku.dir/src/tools.cpp.obj: src/tools.cpp
 CMakeFiles/sudoku.dir/src/tools.cpp.obj: CMakeFiles/sudoku.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sudoku.dir/src/tools.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sudoku.dir/src/tools.cpp.obj"
 	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sudoku.dir/src/tools.cpp.obj -MF CMakeFiles\sudoku.dir\src\tools.cpp.obj.d -o CMakeFiles\sudoku.dir\src\tools.cpp.obj -c D:\VSCode\sudoku\src\tools.cpp
 
 CMakeFiles/sudoku.dir/src/tools.cpp.i: cmake_force
@@ -128,20 +113,35 @@ CMakeFiles/sudoku.dir/src/tools.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sudoku.dir/src/tools.cpp.s"
 	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\VSCode\sudoku\src\tools.cpp -o CMakeFiles\sudoku.dir\src\tools.cpp.s
 
+CMakeFiles/sudoku.dir/src/main.cpp.obj: CMakeFiles/sudoku.dir/flags.make
+CMakeFiles/sudoku.dir/src/main.cpp.obj: CMakeFiles/sudoku.dir/includes_CXX.rsp
+CMakeFiles/sudoku.dir/src/main.cpp.obj: src/main.cpp
+CMakeFiles/sudoku.dir/src/main.cpp.obj: CMakeFiles/sudoku.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\VSCode\sudoku\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sudoku.dir/src/main.cpp.obj"
+	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/sudoku.dir/src/main.cpp.obj -MF CMakeFiles\sudoku.dir\src\main.cpp.obj.d -o CMakeFiles\sudoku.dir\src\main.cpp.obj -c D:\VSCode\sudoku\src\main.cpp
+
+CMakeFiles/sudoku.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sudoku.dir/src/main.cpp.i"
+	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\VSCode\sudoku\src\main.cpp > CMakeFiles\sudoku.dir\src\main.cpp.i
+
+CMakeFiles/sudoku.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sudoku.dir/src/main.cpp.s"
+	D:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\VSCode\sudoku\src\main.cpp -o CMakeFiles\sudoku.dir\src\main.cpp.s
+
 # Object files for target sudoku
 sudoku_OBJECTS = \
 "CMakeFiles/sudoku.dir/src/game.cpp.obj" \
-"CMakeFiles/sudoku.dir/test/test.cpp.obj" \
 "CMakeFiles/sudoku.dir/src/solver.cpp.obj" \
-"CMakeFiles/sudoku.dir/src/tools.cpp.obj"
+"CMakeFiles/sudoku.dir/src/tools.cpp.obj" \
+"CMakeFiles/sudoku.dir/src/main.cpp.obj"
 
 # External object files for target sudoku
 sudoku_EXTERNAL_OBJECTS =
 
 sudoku.exe: CMakeFiles/sudoku.dir/src/game.cpp.obj
-sudoku.exe: CMakeFiles/sudoku.dir/test/test.cpp.obj
 sudoku.exe: CMakeFiles/sudoku.dir/src/solver.cpp.obj
 sudoku.exe: CMakeFiles/sudoku.dir/src/tools.cpp.obj
+sudoku.exe: CMakeFiles/sudoku.dir/src/main.cpp.obj
 sudoku.exe: CMakeFiles/sudoku.dir/build.make
 sudoku.exe: CMakeFiles/sudoku.dir/linkLibs.rsp
 sudoku.exe: CMakeFiles/sudoku.dir/objects1
